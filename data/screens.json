@@ -1,269 +1,619 @@
 {
   "variables": {
-    "stress": 0,
-    "success": 0,
-    "level": 1
+    "rest": 0,
+    "needtime": 0,
+    "stroke": 1,
+    "dice": 1
   },
 
   "screens": [
-    {
-        "id": "start01",
-        "type": "start",
-        "defaultWeight": 1,
-        "showScreenTime": false,
-        "counter": {
-            "type": "none"
-        },
-        "text": "開始画面 {gameElapsed}",
-        "buttons": [
-            {
-                "label": "countupTest",
-                "visibleCondition": {
-                    "type": "immediate"
-                },
-                "transition": {
-                    "type": "fixed",
-                    "target": "countupTest"
-                }
-            },
-            {
-                "label": "ランダム",
-                "visibleCondition": {
-                    "type": "immediate"
-                },
-                "transition": {
-                    "type": "random",
-                    "pool": ["rest"]
-                }
-            }
-        ]
-    },
-    {
-        "id": "countupTest",
-        "type": "task",
-        "defaultWeight": 1,
-        "showScreenTime": true,
 
-        "variableChanges":[
-            {
-            "name":"stress",
-            "value":"2 * level + (stress+1)*2"
-            },
-            {
-            "name":"success",
-            "value":"success+1"
-            }
-        ],
-        "counter": {
-            "type": "countup",
-            "start": 2,
-            "interval": 0.5
-        },
-        "text": "CountUpテスト（5以上でボタン表示） {gameElapsed}",
-        "buttons": [
-            {
-                "label": "次へ",
-                "visibleCondition": {
-                    "type": "value",
-                    "variable":"counterValue",
-                    "operator": ">=",
-                    "value": 5
-                },
-                "transition": {
-                    "type": "fixed",
-                    "target": "countdownTest",
-                    "variableChanges":[
-                      {
-                        "name":"stress",
-                        "value":"stress+screenElapsed"
-                      }
-                    ]
-                }
-            },
-            {
-                "label": "スタートに戻る",
-                "visibleCondition": {
-                    "type": "immediate"
-                },
-                "transition": {
-                    "type": "fixed",
-                    "target": "start01"
-                }
-            }
-        ]
-    },
     {
-        "id": "countdownTest",
-        "type": "task",
-        "defaultWeight": 0,
-        "showScreenTime": true,
-        "counter": {
-            "type": "countdown",
-            "start": 5,
-            "interval": 1
-        },
-        "text": "CountDownテスト（0以下でボタン表示）{gameElapsed}",
-        "buttons": [
-            {
-                "label": "次へ",
-                "visibleCondition": {
-                    "type": "value",
-                    "variable":"counterValue",
-                    "operator": "<=",
-                    "value": 0
-                },
-                "transition": {
-                    "type": "fixed",
-                    "target": "elapsedTest"
-                }
-            },
-            {
-                "label": "スタートに戻る",
-                "visibleCondition": {
-                    "type": "immediate"
-                },
-                "transition": {
-                    "type": "fixed",
-                    "target": "start01"
-                }
-            }
-        ]
+      "id": "start01",
+      "type": "start",
+
+      "showScreenTime": false,
+
+      "counter": {
+        "type": "none"
+      },
+
+      "text": "開始します",
+
+      "buttons": [
+        {
+          "label": "開始",
+
+          "visibleCondition": {
+            "type": "immediate"
+          },
+
+          "transition": {
+            "type": "fixed",
+            "target": "rest01"
+          }
+        }
+      ]
     },
+
     {
-        "id": "elapsedTest",
-        "type": "task",
-        "defaultWeight": 0,
-        "showScreenTime": true,
-        "counter": {
-            "type": "elapsed"
-        },
-        "text": "Elapsedテスト（3秒経過でボタン表示）{gameElapsed}",
-        "buttons": [
+      "id": "rest01",
+      "type": "rest",
+
+      "showScreenTime": true,
+
+      "counter": {
+        "type": "none"
+      },
+
+      "text": "マス数を選択してください",
+
+      "buttons": [
+
+        {
+          "label": "15",
+
+          "visibleCondition": {
+            "type": "immediate"
+          },
+
+          "variableChanges": [
             {
-                "label": "次へ",
-                "visibleCondition": {
-                    "type": "value",
-                    "variable":"screenElapsed",
-                    "operator": ">=",
-                    "value": 3
-                },
-                "transition": {
-                    "type": "fixed",
-                    "target": "timerTest"
-                }
-            },
-            {
-                "label": "スタートに戻る",
-                "visibleCondition": {
-                    "type": "immediate"
-                },
-                "transition": {
-                    "type": "fixed",
-                    "target": "start01"
-                }
+              "name": "rest",
+              "value": 15
             }
-        ]
+          ],
+
+          "transition": {
+            "type": "random",
+            "pool": "task"
+          }
+        },
+
+        {
+          "label": "30",
+
+          "visibleCondition": {
+            "type": "immediate"
+          },
+
+          "variableChanges": [
+            {
+              "name": "rest",
+              "value": 30
+            }
+          ],
+
+          "transition": {
+            "type": "random",
+            "pool": "task"
+          }
+        },
+
+        {
+          "label": "50",
+
+          "visibleCondition": {
+            "type": "immediate"
+          },
+
+          "variableChanges": [
+            {
+              "name": "rest",
+              "value": 50
+            }
+          ],
+
+          "transition": {
+            "type": "random",
+            "pool": "task"
+          }
+        },
+
+        {
+          "label": "80",
+
+          "visibleCondition": {
+            "type": "immediate"
+          },
+
+          "variableChanges": [
+            {
+              "name": "rest",
+              "value": 80
+            }
+          ],
+
+          "transition": {
+            "type": "random",
+            "pool": "task"
+          }
+        },
+
+        {
+          "label": "100",
+
+          "visibleCondition": {
+            "type": "immediate"
+          },
+
+          "variableChanges": [
+            {
+              "name": "rest",
+              "value": 100
+            }
+          ],
+
+          "transition": {
+            "type": "random",
+            "pool": "task"
+          }
+        }
+      ]
+    
     },
+
     {
-        "id": "timerTest",
-        "type": "task",
-        "defaultWeight": 0,
-        "showScreenTime": true,
-        "counter": {
-            "type": "timer",
-            "duration": 5
+      "id": "task01",
+      "type": "task",
+
+      "defaultWeight": 1,
+
+      "showScreenTime": false,
+
+      "variableChanges": [
+
+        {
+          "name": "needtime",
+          "value": "[15,15,15,15,15,15,15,15,15,30,30,30,30,30,30,30,30,45,45,45,60,60,120,150,180][Math.floor(Math.random()*25)]"
         },
-        "text": "Timerテスト（残り0秒で自動遷移）{gameElapsed}",
-        "autoTransition": {
-            "condition": {
-                "type": "value",
-                "variable":"counterValue",
-                "operator": "<=",
-                "value": 0
-            },
-            "transition": {
-                "type": "fixed",
-                "target": "autoTimeTest"
+
+        {
+          "name": "stroke",
+          "value": "1+Math.random()"
+        }
+
+      ],
+
+      "counter": {
+
+        "type": "countup",
+
+        "interval": "stroke"
+
+      },
+
+      "text": "{needtime}秒のストローク",
+
+      "buttons": [
+
+        {
+
+          "label": "進む",
+
+          "visibleCondition": {
+
+            "type": "immediate"
+
+          },
+
+          "transition": {
+
+            "type": "random",
+
+            "pool": [
+              "rest02",
+              "rest03"
+            ],
+
+            "weights": {
+
+              "rest02": "screenElapsed-needtime",
+
+              "rest03": "needtime-screenElapsed"
+
             }
-        },
-        "buttons": [
-            {
-                "label": "スタートに戻る",
-                "visibleCondition": {
-                    "type": "immediate"
-                },
-                "transition": {
-                    "type": "fixed",
-                    "target": "start01"
-                }
-            }
-        ]
+
+          }
+
+        }
+
+      ]
+
     },
+
     {
-        "id": "autoTimeTest",
-        "type": "rest",
-        "defaultWeight": 1,
-        "showScreenTime": true,
-        "counter": {
-            "type": "none"
+      "id": "task02",
+      "type": "task",
+
+      "defaultWeight": 1,
+
+      "showScreenTime": false,
+
+      "variableChanges": [
+
+        {
+
+          "name": "needtime",
+
+          "value": "[15,15,15,15,15,15,15,15,15,30,30,30,30,30,30,30,30,45,45,45,60,60,120,150,180][Math.floor(Math.random()*25)]"
+
         },
-        "text": "5秒後に自動遷移{gameElapsed}",
-        "autoTransition": {
-            "condition": {
-                "type": "value",
-                "variable":"screenElapsed",
-                "operator": ">=",
-                "value": 5
-            },
-            "transition": {
-                "type": "fixed",
-                "target": "end01"
+
+        {
+
+          "name": "stroke",
+
+          "value": "0.8+Math.random()*0.2"
+
+        }
+
+      ],
+
+      "counter": {
+
+        "type": "countup",
+
+        "interval": "stroke"
+
+      },
+
+      "text": "{needtime}秒のストローク",
+
+      "buttons": [
+
+        {
+
+          "label": "進む",
+
+          "visibleCondition": {
+
+            "type": "immediate"
+
+          },
+
+          "transition": {
+
+            "type": "random",
+
+            "pool": [
+              "rest02",
+              "rest03"
+            ],
+
+            "weights": {
+
+              "rest02": "screenElapsed-needtime",
+
+              "rest03": "needtime-screenElapsed"
+
             }
-        },
-        "buttons": [
-            {
-                "label": "countupTest",
-                "visibleCondition": {
-                    "type": "immediate"
-                },
-                "transition": {
-                    "type": "fixed",
-                    "target": "countupTest"
-                }
-            },
-            {
-                "label": "スタートに戻る",
-                "visibleCondition": {
-                    "type": "immediate"
-                },
-                "transition": {
-                    "type": "fixed",
-                    "target": "start01"
-                }
-            }
-        ]
+
+          }
+
+        }
+
+      ]
+
     },
+
     {
-        "id": "end01",
-        "type": "end",
-        "defaultWeight": 1,
-        "showScreenTime": true,
-        "counter": {
-            "type": "none"
+      "id": "task03",
+      "type": "task",
+
+      "defaultWeight": 1,
+
+      "showScreenTime": false,
+
+      "variableChanges": [
+
+        {
+
+          "name": "needtime",
+
+          "value": "[15,15,15,15,15,15,15,15,15,30,30,30,30,30,30,30,30,45,45,45,60,60,120,150,180][Math.floor(Math.random()*25)]"
+
         },
-        "text": "全テスト終了{gameElapsed}",
-        "buttons": [
-            {
-                "label": "最初に戻る",
-                "visibleCondition": {
-                    "type": "immediate"
-                },
-                "transition": {
-                    "type": "fixed",
-                    "target": "start01"
-                }
+
+        {
+
+          "name": "stroke",
+
+          "value": "0.3+Math.random()*0.5"
+
+        }
+
+      ],
+
+      "counter": {
+
+        "type": "countup",
+
+        "interval": "stroke"
+
+      },
+
+      "text": "{needtime}秒のストローク",
+
+      "buttons": [
+
+        {
+
+          "label": "進む",
+
+          "visibleCondition": {
+
+            "type": "immediate"
+
+          },
+
+          "transition": {
+
+            "type": "random",
+
+            "pool": [
+              "rest02",
+              "rest03"
+            ],
+
+            "weights": {
+
+              "rest02": "screenElapsed-needtime",
+
+              "rest03": "needtime-screenElapsed"
+
             }
-        ]
+
+          }
+
+        }
+
+      ]
+
+    },
+
+    {
+      "id": "rest02",
+
+      "type": "rest",
+
+      "showScreenTime": true,
+
+      "variableChanges": [
+
+        {
+
+          "name": "dice",
+
+          "value": "Math.floor(Math.random()*6)+1"
+
+        },
+
+        {
+
+          "name": "rest",
+
+          "value": "rest-dice"
+
+        }
+
+      ],
+
+      "counter": {
+
+        "type": "countdown",
+
+        "start": "Math.ceil(needtime/3)+10",
+
+        "interval": 1
+
+      },
+
+      "text": "成功。{dice}マス進む。残り{rest}マス",
+
+      "buttons": [
+
+        {
+
+          "label": "進む",
+
+          "visibleCondition": {
+
+            "type": "immediate"
+
+          },
+
+          "transition": {
+
+            "type": "random",
+
+            "pool": [
+
+              "task",
+
+              "end"
+
+            ],
+
+            "weights": {
+              "task01": "rest",
+              "task02": "rest",
+              "task03": "rest",
+
+              "end01": "-(rest-1)"
+
+            }
+
+          }
+
+        }
+
+      ],
+
+      "autoTransition": {
+
+        "condition": {
+
+          "type": "value",
+
+          "variable": "counterValue",
+
+          "operator": "<=",
+
+          "value": 0
+
+        },
+
+        "transition": {
+
+          "type": "random",
+
+          "pool": [
+
+            "task",
+
+            "end"
+
+          ],
+
+          "weights": {
+
+            "end01": "-(rest-1)"
+
+          }
+
+        }
+
+      }
+
+    },
+
+    
+    {
+      "id": "rest03",
+
+      "type": "rest",
+
+      "showScreenTime": true,
+
+      "counter": {
+
+        "type": "countdown",
+
+        "start": "Math.ceil(needtime/3)+10",
+
+        "interval": 1
+
+      },
+
+      "text": "失敗。残り{rest}マス",
+
+      "buttons": [
+
+        {
+
+          "label": "進む",
+
+          "visibleCondition": {
+
+            "type": "immediate"
+
+          },
+
+          "transition": {
+
+            "type": "random",
+
+            "pool": [
+
+              "task"
+
+            ],
+
+            "weights": {
+
+              "end01": "-(rest-1)"
+
+            }
+
+          }
+
+        }
+
+      ],
+
+      "autoTransition": {
+
+        "condition": {
+
+          "type": "value",
+
+          "variable": "counterValue",
+
+          "operator": "<=",
+
+          "value": 0
+
+        },
+
+        "transition": {
+
+          "type": "random",
+
+          "pool": [
+
+            "task"
+
+          ]
+
+        }
+
+      }
+
+    },
+
+    {
+      "id": "end01",
+
+      "type": "end",
+
+      "showScreenTime": true,
+
+      "counter": {
+
+        "type": "countup",
+
+        "interval": "0.5/(screenElapsed/60+1)"
+
+      },
+
+      "text": "クリア",
+
+      "buttons": [
+
+        {
+
+          "label": "開始画面へ",
+
+          "visibleCondition": {
+
+            "type": "immediate"
+
+          },
+
+          "transition": {
+
+            "type": "fixed",
+
+            "target": "start01"
+
+          }
+
+        }
+
+      ]
+
     }
+
   ]
 }

@@ -1,5 +1,7 @@
 const DEBUG_MODE = true;
 
+let isPaused = false;
+
 let screens = [];
 let currentScreen = null;
 
@@ -29,6 +31,45 @@ const buttonArea =
 
 const debugPanel =
     document.getElementById("debugPanel");
+
+const pauseButton =
+    document.getElementById(
+        "pauseButton"
+    );
+
+const pauseOverlay =
+    document.getElementById(
+        "pauseOverlay"
+    );
+
+const resumeButton =
+    document.getElementById(
+        "resumeButton"
+    );
+
+function pauseGame() {
+
+    isPaused = true;
+
+    pauseOverlay.style.display =
+        "flex";
+}
+function resumeGame() {
+
+    isPaused = false;
+
+    pauseOverlay.style.display =
+        "none";
+}
+
+pauseButton.addEventListener(
+    "click",
+    pauseGame
+);
+resumeButton.addEventListener(
+    "click",
+    resumeGame
+);
 
 async function loadScreens() {
 
@@ -144,6 +185,9 @@ function startScreenTimer() {
     updateScreenTime();
 
     screenTimer = setInterval(() => {
+        if (isPaused) {
+            return;
+        }
 
         screenElapsed++;
         if (currentScreen &&currentScreen.type !== "start") {
@@ -234,12 +278,15 @@ function startCounter() {
 function startCountdown(config) {
 
     counterValue =
-        config.start;
+        (Number(evaluateExpression(config.start ?? 10)));
 
     counterDisplay.textContent =
         counterValue;
 
     counterTimer = setInterval(() => {
+        if (isPaused) {
+            return;
+        }
 
         counterValue--;
 
@@ -257,18 +304,21 @@ function startCountdown(config) {
             clearInterval(counterTimer);
         }
 
-    }, (config.interval || 1) * 1000);
+    }, (Number(evaluateExpression(config.interval ?? 1))) * 1000);
 }
 
 function startCountup(config) {
 
     counterValue = 
-        config.start || 0;
+        (Number(evaluateExpression(config.start ?? 0)));
 
     counterDisplay.textContent =
         counterValue;
 
     counterTimer = setInterval(() => {
+        if (isPaused) {
+            return;
+        }
 
         counterValue++;
 
@@ -281,7 +331,7 @@ function startCountup(config) {
 
         updateDebugPanel();
 
-    }, (config.interval || 1) * 1000);
+    }, (Number(evaluateExpression(config.interval ?? 1))) * 1000);
 }
 
 function startElapsedCounter() {
@@ -290,6 +340,9 @@ function startElapsedCounter() {
         "00:00";
 
     counterTimer = setInterval(() => {
+        if (isPaused) {
+            return;
+        }
 
         const minutes =
             Math.floor(screenElapsed / 60);
@@ -308,7 +361,7 @@ function startElapsedCounter() {
 function startTimer(config) {
 
     let remaining =
-        config.duration;
+        (Number(evaluateExpression(config.duration ?? 1)));
 
     counterValue =
         remaining;
@@ -316,6 +369,9 @@ function startTimer(config) {
     updateDisplay();
 
     counterTimer = setInterval(() => {
+        if (isPaused) {
+            return;
+        }
 
         remaining--;
 
@@ -682,19 +738,22 @@ function getRandomPool(poolConfig) {
 
     return [];
 }
-
 function getWeight(
     screen,
     weightsConfig
 ) {
 
     const defaultWeight =
-        screen.defaultWeight ?? 1;
+        evaluateExpression(
+            screen.defaultWeight ?? 1
+        );
 
     if (!weightsConfig) {
 
         return defaultWeight;
     }
+
+    let expression;
 
     if (
         weightsConfig[
@@ -702,22 +761,44 @@ function getWeight(
         ] !== undefined
     ) {
 
-        return weightsConfig[
-            screen.id
-        ];
-    }
+        expression =
+            weightsConfig[
+                screen.id
+            ];
 
-    if (
+    } else if (
         weightsConfig.else !==
         undefined
     ) {
 
-        return weightsConfig.else;
+        expression =
+            weightsConfig.else;
+
+    } else {
+
+        return defaultWeight;
     }
 
-    return defaultWeight;
-}
+    try {
 
+        return Number(
+            evaluateExpression(
+                expression
+            )
+        );
+
+    } catch (e) {
+
+        console.error(
+            "Weight Expression Error",
+            screen.id,
+            expression,
+            e
+        );
+
+        return 0;
+    }
+}
 function chooseWeightedScreen(
     candidates,
     weightsConfig

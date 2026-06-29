@@ -1,59 +1,148 @@
 body {
+
     margin: 0;
+
     padding: 20px;
+
+    box-sizing: border-box;
 
     font-family: sans-serif;
 
     display: flex;
+
     flex-direction: column;
 
     height: 100vh;
 
-    box-sizing: border-box;
+    overflow: hidden;
+
 }
 
+/*-------------------------*/
+
 #topBar {
+
     display: flex;
 
     justify-content: space-between;
 
     align-items: center;
+
+    flex: 0 0 auto;
+
 }
 
+/*-------------------------*/
+
 #counter {
-    flex: 1;
+
+    flex: 0 0 180px;
 
     display: flex;
 
     justify-content: center;
+
     align-items: center;
 
     font-size: 5rem;
+
 }
 
+/*-------------------------*/
+
+#contentArea {
+
+    flex: 1;
+
+    overflow-y: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    padding-bottom: 20px;
+
+}
+
+/*-------------------------*/
+
 #taskText {
+
+    width: 100%;
+
     text-align: center;
+
+    white-space: pre-line;
 
     font-size: 1.5rem;
 
+    line-height: 1.6;
+
     margin-bottom: 30px;
-    
-    white-space: pre-line;
+
 }
+
+/*-------------------------*/
 
 #buttonArea {
-    text-align: center;
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding-bottom: 50px;
+
 }
 
-#nextButton {
-    font-size: 1.2rem;
+/*-------------------------*/
 
-    padding: 15px 30px;
+#buttonArea button {
+
+    width: 90%;
+
+    max-width: 500px;
+
+    min-height: 80px;
+
+    font-size: 2rem;
+
+    border-radius: 12px;
+
 }
+
+/*-------------------------*/
+
+#topBar button {
+
+    width: 60px;
+
+    height: 60px;
+
+    font-size: 2rem;
+
+}
+
+/*-------------------------*/
+
+#screenTime {
+
+    font-size: 1.8rem;
+
+}
+
+/*-------------------------*/
 
 #debugPanel {
 
-    margin-top: 20px;
+    margin-top: 10px;
 
     padding: 10px;
 
@@ -62,7 +151,14 @@ body {
     font-size: 12px;
 
     white-space: pre-wrap;
+
+    max-height: 150px;
+
+    overflow-y: auto;
+
 }
+
+/*-------------------------*/
 
 #pauseOverlay {
 
@@ -70,25 +166,46 @@ body {
 
     inset: 0;
 
-    background:rgba(0,0,0,.6);
+    display: none;
 
-    display:none;
+    justify-content: center;
 
-    justify-content:center;
+    align-items: center;
 
-    align-items:center;
+    background: rgba(0, 0, 0, 0.65);
 
-    z-index:9999;
+    z-index: 9999;
+
 }
+
+/*-------------------------*/
 
 #pauseContent {
 
+    color: white;
+
     text-align: center;
 
-    color: white;
 }
+
+/*-------------------------*/
 
 #pauseContent h1 {
 
-    font-size: 3rem;
+    font-size: 4rem;
+
+    margin-bottom: 40px;
+
+}
+
+/*-------------------------*/
+
+#resumeButton {
+
+    width: 250px;
+
+    height: 90px;
+
+    font-size: 2rem;
+
 }

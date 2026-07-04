@@ -1,6 +1,8 @@
-const DEBUG_MODE = false;
+const DEBUG_MODE = true;
 
 let isPaused = false;
+
+let audioContext = null;
 
 let screens = [];
 let currentScreen = null;
@@ -25,6 +27,11 @@ const screenTime =
 
 const counterDisplay =
     document.getElementById("counter");
+
+
+const progressBar =document.getElementById("progressBar");
+
+const beatBar =document.getElementById("beatBar");
 
 const buttonArea =
     document.getElementById("buttonArea");
@@ -193,7 +200,7 @@ function startScreenTimer() {
         if (currentScreen &&currentScreen.type !== "start") {
             gameElapsed++;
         }
-
+        
         updateScreenTime();
         
         updateScreenText();
@@ -289,6 +296,7 @@ function startCountdown(config) {
         }
 
         counterValue--;
+        playTick();
 
         counterDisplay.textContent =
             counterValue;
@@ -321,6 +329,7 @@ function startCountup(config) {
         }
 
         counterValue++;
+        playTick();
 
         counterDisplay.textContent =
             counterValue;
@@ -426,9 +435,9 @@ function renderText(
 
             try {
 
-                return evaluateExpression(
+                return Number(evaluateExpression(
                     expression
-                );
+                ));
 
             } catch(error) {
 
@@ -952,6 +961,37 @@ function updateDebugPanel() {
         Variables:
         ${JSON.stringify(gameVariables)}
     `;
+}
+
+function playTick() {
+
+    if (isPaused) {
+        return;
+    }
+
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    const osc = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+
+    osc.type = "square";
+    osc.frequency.value = 1200;
+
+    gain.gain.value = 0.08;
+
+    osc.connect(gain);
+    gain.connect(audioContext.destination);
+
+    osc.start();
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        audioContext.currentTime + 0.03
+    );
+
+    osc.stop(audioContext.currentTime + 0.03);
 }
 
 loadScreens();

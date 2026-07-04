@@ -66,7 +66,7 @@
 
           "transition": {
             "type": "random",
-            "pool": "task"
+            "pool": ["task","stroke"]
           }
         },
 
@@ -86,7 +86,7 @@
 
           "transition": {
             "type": "random",
-            "pool": "task"
+            "pool": ["task","stroke"]
           }
         },
 
@@ -106,7 +106,7 @@
 
           "transition": {
             "type": "random",
-            "pool": "task"
+            "pool": ["task","stroke"]
           }
         },
 
@@ -126,7 +126,7 @@
 
           "transition": {
             "type": "random",
-            "pool": "task"
+            "pool": ["task","stroke"]
           }
         },
 
@@ -146,7 +146,7 @@
 
           "transition": {
             "type": "random",
-            "pool": "task"
+            "pool": ["task","stroke"]
           }
         }
       ]
@@ -165,7 +165,7 @@
 
         {
           "name": "needtime",
-          "value": "[15,15,15,15,15,15,15,15,15,30,30,30,30,30,30,30,30,45,45,45,60,60,120,150,180][Math.floor(Math.random()*25)]"
+          "value": "[15,15,15,15,15,15,15,15,15,30,30,30,30,30,30,30,30,45,45,45,60,60,120][Math.floor(Math.random()*23)]"
         },
 
         {
@@ -185,7 +185,7 @@
 
       },
 
-      "text": "{needtime}秒のストローク",
+      "text": "{needtime}秒～{Math.floor(needtime*1.6)}秒のストローク",
 
       "buttons": [
 
@@ -210,9 +210,9 @@
 
             "weights": {
 
-              "rest02": "screenElapsed-needtime+1",
+              "rest02": "Math.min(screenElapsed-needtime+1,Math.floor(needtime*1.6-screenElapsed))+1",
 
-              "rest03": "needtime-screenElapsed"
+              "rest03": "Math.max(needtime-screenElapsed,Math.floor(screenElapsed-needtime*1.6))"
 
             }
 
@@ -238,7 +238,7 @@
 
           "name": "needtime",
 
-          "value": "[15,15,15,15,15,15,15,15,15,30,30,30,30,30,30,30,30,45,45,45,60,60,120,150,180][Math.floor(Math.random()*25)]"
+          "value": "[15,15,15,15,15,15,15,15,15,30,30,30,30,30,30,45,45,45,45,60][Math.floor(Math.random()*20)]"
 
         },
 
@@ -262,7 +262,7 @@
 
       },
 
-      "text": "{needtime}秒のストローク",
+      "text": "{needtime}秒～{Math.floor(needtime*1.5)}秒のストローク",
 
       "buttons": [
 
@@ -287,9 +287,9 @@
 
             "weights": {
 
-              "rest02": "screenElapsed-needtime+1",
+              "rest02": "Math.min(screenElapsed-needtime+1,Math.floor(needtime*1.5-screenElapsed))+1",
 
-              "rest03": "needtime-screenElapsed"
+              "rest03": "Math.max(needtime-screenElapsed,Math.floor(screenElapsed-needtime*1.5))"
 
             }
 
@@ -315,7 +315,7 @@
 
           "name": "needtime",
 
-          "value": "[15,15,15,15,15,15,15,15,15,30,30,30,30,30,30,30,30,45,45,45,60,60,120,150,180][Math.floor(Math.random()*25)]"
+          "value": "[15,15,15,15,15,15,15,15,15,30,30,30,30,30,30,45,45][Math.floor(Math.random()*17)]"
 
         },
 
@@ -339,7 +339,7 @@
 
       },
 
-      "text": "{needtime}秒のストローク",
+      "text": "{needtime}秒～{Math.floor(needtime*1.3)}秒のストローク",
 
       "buttons": [
 
@@ -364,9 +364,9 @@
 
             "weights": {
 
-              "rest02": "screenElapsed-needtime+1",
+              "rest02": "Math.min(screenElapsed-needtime+1,Math.floor(needtime*1.3-screenElapsed))+1",
 
-              "rest03": "needtime-screenElapsed"
+              "rest03": "Math.max(needtime-screenElapsed,Math.floor(screenElapsed-needtime*1.3))"
 
             }
 
@@ -415,7 +415,7 @@
 
       },
 
-      "text": "成功。{dice}マス進む。残り{rest}マス",
+      "text": "成功：{previousScreenElapsed}秒\n{dice}マス進む。残り{rest}マス",
 
       "buttons": [
 
@@ -477,6 +477,7 @@
           "pool": [
 
             "task",
+            "stroke",
 
             "end"
 
@@ -532,7 +533,7 @@
 
       },
 
-      "text": "失敗。{dice}マス戻る。残り{rest}マス",
+      "text": "失敗：{previousScreenElapsed}秒\n{dice}マス戻る。残り{rest}マス",
 
       "buttons": [
 
@@ -552,7 +553,8 @@
 
             "pool": [
 
-              "task"
+              "task",
+              "stroke"
 
             ],
 
@@ -596,6 +598,150 @@
 
       }
 
+    },
+    {
+        "id": "stroke01",
+        "type": "stroke",
+        "defaultWeight": 0.8,
+        "showScreenTime": true,
+        "variableChanges": [
+
+        {
+          "name": "needtime",
+
+          "value": "10"
+        },
+
+        {
+          "name": "stroke",
+          "value": "1+Math.random()"
+        }
+
+      ],
+        "counter": {
+            "type": "countdown",
+            "start": "Math.floor(Math.random()*3+1)*30-10+Math.floor(Math.random()*Math.floor(rest / Math.pow(10, Math.floor(Math.log10(rest))))/2)*10",
+            "interval": "[0.5,0.8,1][Math.floor(Math.random()*3)]"
+        },
+        "text": "strokeチャレンジ",
+
+      "autoTransition": {
+
+        "condition": {
+
+          "type": "value",
+
+          "variable": "counterValue",
+
+          "operator": "<=",
+
+          "value": 0
+
+        },
+
+        "transition": {
+
+            "type": "fixed",
+            "target": "rest02"
+
+        }
+
+      }
+    },
+    {
+        "id": "stroke02",
+        "type": "stroke",
+        "defaultWeight": 1,
+        "showScreenTime": true,
+              "variableChanges": [
+
+        {
+          "name": "needtime",
+
+          "value": "10"
+        },
+
+        {
+          "name": "stroke",
+          "value": "1+Math.random()"
+        }
+
+      ],
+        "counter": {
+            "type": "countdown",
+            "start": "Math.floor(Math.random()*3+1)*20-10+Math.floor(Math.random()*Math.floor(rest / Math.pow(10, Math.floor(Math.log10(rest))))/3)*10",
+            "interval": "[0.3,0.4,0.5][Math.floor(Math.random()*3)]"
+        },
+        "text": "strokeチャレンジ：速い",
+      "autoTransition": {
+
+        "condition": {
+
+          "type": "value",
+
+          "variable": "counterValue",
+
+          "operator": "<=",
+
+          "value": 0
+
+        },
+
+        "transition": {
+
+            "type": "fixed",
+            "target": "rest02"
+
+        }
+
+      }
+    },
+    {
+        "id": "stroke03",
+        "type": "stroke",
+        "defaultWeight": 0.5,
+        "showScreenTime": true,
+              "variableChanges": [
+
+        {
+          "name": "needtime",
+          "value": "10"
+        },
+
+        {
+          "name": "stroke",
+          "value": "1+Math.random()"
+        }
+
+      ],
+        "counter": {
+            "type": "countdown",
+            "start": "Math.floor(Math.random()*2+1)*20-10+Math.floor(Math.random()*Math.floor(rest / Math.pow(10, Math.floor(Math.log10(rest))))/3)*10",
+            "interval": "[0.2,0.25,0.3][Math.floor(Math.random()*3)]"
+        },
+        "text": "strokeチャレンジ：とても速い",
+      "autoTransition": {
+
+        "condition": {
+
+          "type": "value",
+
+          "variable": "counterValue",
+
+          "operator": "<=",
+
+          "value": 0
+
+        },
+
+        "transition": {
+
+            "type": "fixed",
+            "target": "rest02"
+
+        }
+
+      }
     },
 
     {

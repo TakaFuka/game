@@ -314,21 +314,30 @@ function startCountdown(config) {
 
     }, (Number(evaluateExpression(config.interval ?? 1))) * 1000);
 }
-
 function startCountup(config) {
 
-    counterValue = 
-        (Number(evaluateExpression(config.start ?? 0)));
+    counterValue =
+        Number(
+            evaluateExpression(
+                config.start ?? 0
+            )
+        );
 
     counterDisplay.textContent =
         counterValue;
 
-    counterTimer = setInterval(() => {
+    function tick() {
+
         if (isPaused) {
+
+            counterTimer =
+                setTimeout(tick, 50);
+
             return;
         }
 
         counterValue++;
+
         playTick();
 
         counterDisplay.textContent =
@@ -340,7 +349,36 @@ function startCountup(config) {
 
         updateDebugPanel();
 
-    }, (Number(evaluateExpression(config.interval ?? 1))) * 1000);
+        const interval = Math.max(
+            0.01,
+            Number(
+                evaluateExpression(
+                    config.interval ?? 1
+                )
+            )
+        );
+
+        counterTimer =
+            setTimeout(
+                tick,
+                interval * 1000
+            );
+    }
+
+    const interval = Math.max(
+        0.01,
+        Number(
+            evaluateExpression(
+                config.interval ?? 1
+            )
+        )
+    );
+
+    counterTimer =
+        setTimeout(
+            tick,
+            interval * 1000
+        );
 }
 
 function startElapsedCounter() {

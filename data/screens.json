@@ -755,7 +755,7 @@
 
         "type": "countup",
 
-        "interval": "0.5/(screenElapsed/60+1)"
+        "interval": "1/(screenElapsed/20+1)"
 
       },
 

@@ -66,7 +66,7 @@
 
           "transition": {
             "type": "random",
-            "pool": ["task","stroke"]
+            "pool": ["count01"]
           }
         },
 
@@ -86,7 +86,7 @@
 
           "transition": {
             "type": "random",
-            "pool": ["task","stroke"]
+            "pool":["task","stroke","count"] 
           }
         },
 
@@ -106,7 +106,7 @@
 
           "transition": {
             "type": "random",
-            "pool": ["task","stroke"]
+            "pool": ["task","stroke","count"]
           }
         },
 
@@ -126,7 +126,7 @@
 
           "transition": {
             "type": "random",
-            "pool": ["task","stroke"]
+            "pool": ["task","stroke","count"]
           }
         },
 
@@ -146,7 +146,7 @@
 
           "transition": {
             "type": "random",
-            "pool": ["task","stroke"]
+            "pool": ["task","stroke","count"]
           }
         }
       ]
@@ -435,18 +435,15 @@
 
             "pool": [
 
-              "task",
+              "task","stroke","count",
 
               "end"
 
             ],
 
             "weights": {
-              "task01": "rest",
-              "task02": "rest",
-              "task03": "rest",
 
-              "end01": "-(rest-1)"
+              "end01": "-(rest-1)*1000"
 
             }
 
@@ -478,6 +475,7 @@
 
             "task",
             "stroke",
+            "count",
 
             "end"
 
@@ -554,7 +552,8 @@
             "pool": [
 
               "task",
-              "stroke"
+              "stroke",
+              "count"
 
             ],
 
@@ -588,17 +587,16 @@
 
           "type": "random",
 
-          "pool": [
-
-            "task"
-
-          ]
+          "pool": ["task","stroke","count"]
 
         }
 
       }
 
     },
+
+
+
     {
         "id": "stroke01",
         "type": "stroke",
@@ -658,7 +656,7 @@
         {
           "name": "needtime",
 
-          "value": "10"
+          "value": "20"
         },
 
         {
@@ -705,7 +703,7 @@
 
         {
           "name": "needtime",
-          "value": "10"
+          "value": "30"
         },
 
         {
@@ -742,6 +740,224 @@
         }
 
       }
+    },
+
+
+
+
+    
+    {
+        "id": "count01",
+        "type": "count",
+        "defaultWeight": 0.8,
+        "showScreenTime": true,
+        "variableChanges": [
+
+        {
+          "name": "needtime",
+
+          "value": "(Math.floor(Math.random()*4)+1)*30/30"
+        },
+        
+        {
+          "name": "stroke",
+
+          "value": "Math.floor(30*(Math.random()*1+1)/10)*10"
+        }
+
+      ],
+        "counter": {
+            "type": "timer",
+            "duration": "needtime"
+        },
+        "text": "{needtime}以内に{stroke*Math.ceil((screenElapsed+1)/30)}",
+
+      "autoTransition": {
+
+        "condition": {
+
+          "type": "value",
+
+          "variable": "counterValue",
+
+          "operator": "<=",
+
+          "value": 0
+
+        },
+
+        "transition": {
+
+            "type": "fixed",
+            "target": "rest03"
+
+        }
+
+      },
+      
+      "buttons": [
+
+        {
+          "label": "達成",
+
+          "visibleCondition": {
+            "type": "immediate"
+          },
+
+          "transition": {
+            "type": "fixed",
+            "target": "rest02"
+          }
+        }
+      ]
+
+    },
+    
+    {
+        "id": "count02",
+        "type": "count",
+        "defaultWeight": 0.5,
+        "showScreenTime": true,
+        "variableChanges": [
+
+        {
+          "name": "needtime",
+
+          "value": "(Math.floor(Math.random()*3)+2)*30"
+        },
+        
+
+        {
+          "name": "stroke",
+
+          "value": "Math.floor(30*(Math.random()*2+1)/10)*10"
+        },
+        {
+          "name": "dice",
+
+          "value": "Math.random()*0.3+1"
+        }
+
+      ],
+        "counter": {
+            "type": "timer",
+            "duration": "needtime"
+        },
+        "text": "{needtime}以内に{stroke + Math.floor(stroke*dice*(Math.ceil((screenElapsed+1)/30)-1)/10)*10}",
+
+      "autoTransition": {
+
+        "condition": {
+
+          "type": "value",
+
+          "variable": "counterValue",
+
+          "operator": "<=",
+
+          "value": 0
+
+        },
+
+        "transition": {
+
+            "type": "fixed",
+            "target": "rest03"
+
+        }
+
+      },
+      
+      "buttons": [
+
+        {
+          "label": "達成",
+
+          "visibleCondition": {
+            "type": "immediate"
+          },
+
+          "transition": {
+            "type": "fixed",
+            "target": "rest02"
+          }
+        }
+      ]
+
+    },
+    {
+        "id": "count03",
+        "type": "count",
+        "defaultWeight": 0.4,
+        "showScreenTime": true,
+        "variableChanges": [
+
+        {
+          "name": "needtime",
+
+          "value": "(Math.floor(Math.random()*3)+2)*30"
+        },
+        
+ 
+
+        {
+          "name": "stroke",
+
+          "value": "Math.floor(30*(Math.random()*1+2)/10)*10"
+        },
+        {
+          "name": "dice",
+
+          "value": "Math.random()*0.4+1.1"
+        }
+
+      ],
+        "counter": {
+            "type": "timer",
+            "duration": "needtime"
+        },
+        "text": "{needtime}以内に{stroke + Math.floor(stroke*dice*(Math.ceil((screenElapsed+1)/30)-1)/10)*10}",
+
+
+      "autoTransition": {
+
+        "condition": {
+
+          "type": "value",
+
+          "variable": "counterValue",
+
+          "operator": "<=",
+
+          "value": 0
+
+        },
+
+        "transition": {
+
+            "type": "fixed",
+            "target": "rest03"
+
+        }
+
+      },
+      
+      "buttons": [
+
+        {
+          "label": "達成",
+
+          "visibleCondition": {
+            "type": "immediate"
+          },
+
+          "transition": {
+            "type": "fixed",
+            "target": "rest02"
+          }
+        }
+      ]
+
     },
 
     {

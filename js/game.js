@@ -1,4 +1,4 @@
-const DEBUG_MODE = false;
+const DEBUG_MODE = true;
 
 let isPaused = false;
 
@@ -110,7 +110,8 @@ function findScreen(id) {
 }
 
 function showScreen(id) {
-
+    clearInterval(counterTimer);
+    clearInterval(screenTimer);
     previousScreenElapsed =
         screenElapsed;
 

@@ -66,7 +66,7 @@
 
           "transition": {
             "type": "random",
-            "pool": ["count01"]
+            "pool": ["task","stroke","count"]
           }
         },
 
@@ -756,7 +756,7 @@
         {
           "name": "needtime",
 
-          "value": "(Math.floor(Math.random()*4)+1)*30/30"
+          "value": "(Math.floor(Math.random()*4)+1)*30"
         },
         
         {

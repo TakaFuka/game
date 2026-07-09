@@ -762,7 +762,12 @@
         {
           "name": "stroke",
 
-          "value": "Math.floor(30*(Math.random()*1+1)/10)*10"
+          "value": "Math.floor(30*(Math.random()*1+1.5)/10)*10"
+        },
+        {
+          "name": "dice",
+
+          "value": "Math.random()*0.3+1"
         }
 
       ],
@@ -770,7 +775,7 @@
             "type": "timer",
             "duration": "needtime"
         },
-        "text": "{needtime}以内に{stroke*Math.ceil((screenElapsed+1)/30)}",
+        "text": "{needtime}以内に{stroke + Math.floor(stroke*dice*(Math.ceil((screenElapsed+1)/30)-1)/10)*10}\nただし、30秒ごとにノルマ追加",
 
       "autoTransition": {
 
@@ -830,7 +835,7 @@
         {
           "name": "stroke",
 
-          "value": "Math.floor(30*(Math.random()*2+1)/10)*10"
+          "value": "Math.floor(30*(Math.random()*2+1.5)/10)*10"
         },
         {
           "name": "dice",
@@ -843,7 +848,7 @@
             "type": "timer",
             "duration": "needtime"
         },
-        "text": "{needtime}以内に{stroke + Math.floor(stroke*dice*(Math.ceil((screenElapsed+1)/30)-1)/10)*10}",
+        "text": "{needtime}以内に{stroke + Math.floor(stroke*dice*(Math.ceil((screenElapsed+1)/30)-1)/10)*10}\nただし、30秒ごとにノルマ追加",
 
       "autoTransition": {
 
@@ -903,7 +908,7 @@
         {
           "name": "stroke",
 
-          "value": "Math.floor(30*(Math.random()*1+2)/10)*10"
+          "value": "Math.floor(30*(Math.random()*1+2.5)/10)*10"
         },
         {
           "name": "dice",
@@ -916,7 +921,7 @@
             "type": "timer",
             "duration": "needtime"
         },
-        "text": "{needtime}以内に{stroke + Math.floor(stroke*dice*(Math.ceil((screenElapsed+1)/30)-1)/10)*10}",
+        "text": "{needtime}以内に{stroke + Math.floor(stroke*dice*(Math.ceil((screenElapsed+1)/30)-1)/10)*10}\nただし、30秒ごとにノルマ追加",
 
 
       "autoTransition": {

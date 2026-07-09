@@ -600,7 +600,7 @@
     {
         "id": "stroke01",
         "type": "stroke",
-        "defaultWeight": 0.8,
+        "defaultWeight": 1.8,
         "showScreenTime": true,
         "variableChanges": [
 
@@ -649,7 +649,7 @@
     {
         "id": "stroke02",
         "type": "stroke",
-        "defaultWeight": 1,
+        "defaultWeight": 2,
         "showScreenTime": true,
               "variableChanges": [
 
@@ -697,7 +697,7 @@
     {
         "id": "stroke03",
         "type": "stroke",
-        "defaultWeight": 0.5,
+        "defaultWeight": 1.5,
         "showScreenTime": true,
               "variableChanges": [
 
@@ -749,7 +749,7 @@
     {
         "id": "count01",
         "type": "count",
-        "defaultWeight": 0.8,
+        "defaultWeight": 1.9,
         "showScreenTime": true,
         "variableChanges": [
 
@@ -821,7 +821,7 @@
     {
         "id": "count02",
         "type": "count",
-        "defaultWeight": 0.5,
+        "defaultWeight": 1.6,
         "showScreenTime": true,
         "variableChanges": [
 
@@ -893,7 +893,7 @@
     {
         "id": "count03",
         "type": "count",
-        "defaultWeight": 0.4,
+        "defaultWeight": 1.4,
         "showScreenTime": true,
         "variableChanges": [
 

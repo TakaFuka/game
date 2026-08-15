@@ -66,7 +66,7 @@
 
           "transition": {
             "type": "random",
-            "pool": ["task","stroke","count"]
+            "pool": ["task","stroke","count"] 
           }
         },
 
@@ -262,7 +262,7 @@
 
       },
 
-      "text": "{needtime}秒～{Math.floor(needtime*1.5)}秒のストローク",
+      "text": "{needtime}秒～{Math.floor(needtime*1.3)}秒のストローク",
 
       "buttons": [
 
@@ -339,7 +339,7 @@
 
       },
 
-      "text": "{needtime}秒～{Math.floor(needtime*1.3)}秒のストローク",
+      "text": "{needtime}秒～{Math.floor(needtime*1.1)}秒のストローク",
 
       "buttons": [
 
@@ -391,7 +391,7 @@
 
           "name": "dice",
 
-          "value": "Math.floor(Math.random()*6)+1+Math.ceil(needtime/30)"
+          "value": "Math.floor(Math.random()*6)+1+Math.ceil(needtime/60)"
 
         },
 
@@ -409,7 +409,7 @@
 
         "type": "countdown",
 
-        "start": "Math.ceil(needtime/3)+10",
+        "start": "Math.ceil(needtime/3)",
 
         "interval": 1
 
@@ -750,32 +750,31 @@
         "id": "count01",
         "type": "count",
         "defaultWeight": 1.9,
-        "showScreenTime": true,
+        "showScreenTime": false,
         "variableChanges": [
 
         {
           "name": "needtime",
 
-          "value": "(Math.floor(Math.random()*4)+1)*30"
+          "value": "(Math.floor(Math.random()*4)+1)*30+30"
         },
         
         {
           "name": "stroke",
 
-          "value": "Math.floor(30*(Math.random()*1+1.5)/10)*10"
+          "value": "Math.floor(50*(Math.random()*0.3+1)/10) * 10"
         },
         {
           "name": "dice",
 
-          "value": "Math.random()*0.3+1"
+          "value": "Math.floor(30*(Math.random()*0.4+1)/10) * 10"
         }
 
       ],
         "counter": {
-            "type": "timer",
-            "duration": "needtime"
+            "type": "none"
         },
-        "text": "{needtime}以内に{stroke + Math.floor(stroke*dice*(Math.ceil((screenElapsed+1)/30)-1)/10)*10}\nただし、30秒ごとにノルマ追加",
+        "text": "{needtime}以内に{stroke*needtime/30 + dice* (Math.ceil((screenElapsed+1)/30)-1) }\nただし、30秒ごとにノルマ追加 \n　残り時間{needtime-screenElapsed <= 30 ? needtime-screenElapsed-1 : }",
 
       "autoTransition": {
 
@@ -783,11 +782,11 @@
 
           "type": "value",
 
-          "variable": "counterValue",
+          "variable": "needtime",
 
           "operator": "<=",
 
-          "value": 0
+          "value": "screenElapsed"
 
         },
 
@@ -819,36 +818,34 @@
     },
     
     {
-        "id": "count02",
+        "id": "count01",
         "type": "count",
-        "defaultWeight": 1.6,
-        "showScreenTime": true,
+        "defaultWeight": 1.9,
+        "showScreenTime": false,
         "variableChanges": [
 
         {
           "name": "needtime",
 
-          "value": "(Math.floor(Math.random()*3)+2)*30"
+          "value": "(Math.floor(Math.random()*4)+1)*30+90"
         },
         
-
         {
           "name": "stroke",
 
-          "value": "Math.floor(30*(Math.random()*2+1.5)/10)*10"
+          "value": "Math.floor(30*(Math.random()*0.9+1)/10) * 10"
         },
         {
           "name": "dice",
 
-          "value": "Math.random()*0.3+1"
+          "value": "Math.floor(50*(Math.random()*0.3+1)/10) * 10"
         }
 
       ],
         "counter": {
-            "type": "timer",
-            "duration": "needtime"
+            "type": "none"
         },
-        "text": "{needtime}以内に{stroke + Math.floor(stroke*dice*(Math.ceil((screenElapsed+1)/30)-1)/10)*10}\nただし、30秒ごとにノルマ追加",
+        "text": "{needtime}以内に{stroke*needtime/30 + dice* (Math.ceil((screenElapsed+1)/30)-1) }\nただし、30秒ごとにノルマ追加 \n　残り時間{needtime-screenElapsed <= 30 ? needtime-screenElapsed-1 : }",
 
       "autoTransition": {
 
@@ -856,11 +853,11 @@
 
           "type": "value",
 
-          "variable": "counterValue",
+          "variable": "needtime",
 
           "operator": "<=",
 
-          "value": 0
+          "value": "screenElapsed"
 
         },
 
@@ -890,39 +887,35 @@
       ]
 
     },
-    {
-        "id": "count03",
+        {
+        "id": "count01",
         "type": "count",
-        "defaultWeight": 1.4,
-        "showScreenTime": true,
+        "defaultWeight": 1.9,
+        "showScreenTime": false,
         "variableChanges": [
 
         {
           "name": "needtime",
 
-          "value": "(Math.floor(Math.random()*3)+2)*30"
+          "value": "(Math.floor(Math.random()*3)+0)*30+150"
         },
         
- 
-
         {
           "name": "stroke",
 
-          "value": "Math.floor(30*(Math.random()*1+2.5)/10)*10"
+          "value": "Math.floor(50*(Math.random()*0.5+1)/10) * 10"
         },
         {
           "name": "dice",
 
-          "value": "Math.random()*0.4+1.1"
+          "value": "Math.floor(50*(Math.random()*0.3+1)/10) * 10"
         }
 
       ],
         "counter": {
-            "type": "timer",
-            "duration": "needtime"
+            "type": "none"
         },
-        "text": "{needtime}以内に{stroke + Math.floor(stroke*dice*(Math.ceil((screenElapsed+1)/30)-1)/10)*10}\nただし、30秒ごとにノルマ追加",
-
+        "text": "{needtime}以内に{stroke*needtime/30 + dice* (Math.ceil((screenElapsed+1)/30)-1) }\nただし、30秒ごとにノルマ追加 \n　残り時間{needtime-screenElapsed <= 30 ? needtime-screenElapsed-1 : }",
 
       "autoTransition": {
 
@@ -930,11 +923,11 @@
 
           "type": "value",
 
-          "variable": "counterValue",
+          "variable": "needtime",
 
           "operator": "<=",
 
-          "value": 0
+          "value": "screenElapsed"
 
         },
 
@@ -964,6 +957,7 @@
       ]
 
     },
+
 
     {
       "id": "end01",
